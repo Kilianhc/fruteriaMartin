@@ -23,6 +23,44 @@ router.post('/', async (req, res) => {
   res.status(201).json({ message: 'Orden creada', orderId: newOrder._id });
 });
 
+// Obtener todas las órdenes (solo para el admin, en el futuro se puede proteger)
+router.get('/', async (req, res) => {
+    try {
+      const orders = await Order.find().sort({ createdAt: -1 });
+      res.json(orders);
+    } catch (err) {
+      console.error('Error al obtener órdenes:', err);
+      res.status(500).json({ message: 'Error del servidor' });
+    }
+  });
+  
+  // Obtener estadísticas generales de órdenes
+router.get('/stats/general', async (req, res) => {
+    try {
+      const totalOrders = await Order.countDocuments();
+      const totalRevenueResult = await Order.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalRevenue: { $sum: '$total' },
+          },
+        },
+      ]);
+  
+      const lastOrder = await Order.findOne().sort({ createdAt: -1 });
+  
+      res.json({
+        totalOrders,
+        totalRevenue: totalRevenueResult[0]?.totalRevenue || 0,
+        lastOrderDate: lastOrder?.createdAt || null,
+      });
+    } catch (err) {
+      console.error('Error al obtener estadísticas:', err);
+      res.status(500).json({ message: 'Error del servidor' });
+    }
+  });
+  
+
 // Obtener una orden por ID (sin auth)
 router.get('/:id', async (req, res) => {
     try {

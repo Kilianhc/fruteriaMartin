@@ -10,22 +10,29 @@ router.post('/create-session', async (req, res) => {
 
   try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'payment',
-      line_items: cartItems.map(item => ({
-        price_data: {
-          currency: 'eur',
-          product_data: {
+        payment_method_types: ['card'],
+        mode: 'payment',
+        line_items: cartItems.map(item => {
+          const productData = {
             name: item.name,
-            description: item.description || '',
-          },
-          unit_amount: Math.round(item.price * 100),
-        },
-        quantity: item.quantity,
-      })),
-      success_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000/cancel',
-    });
+          };
+      
+          if (item.description && item.description.trim() !== '') {
+            productData.description = item.description;
+          }
+      
+          return {
+            price_data: {
+              currency: 'eur',
+              product_data: productData,
+              unit_amount: Math.round(item.price * 100),
+            },
+            quantity: item.quantity,
+          };
+        }),
+        success_url: 'http://localhost:3000/success',
+        cancel_url: 'http://localhost:3000/cancel',
+      });      
 
     res.json({ url: session.url });
   } catch (error) {
