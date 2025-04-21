@@ -1,5 +1,6 @@
 import express from 'express';
 import Product from '../models/Product.js';
+import { protect, isAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST crear nuevo producto
-router.post('/', async (req, res) => {
+router.post('/', protect, isAdmin, async (req, res) => {
   try {
     const newProduct = new Product(req.body);
     await newProduct.save();
@@ -32,7 +33,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT actualizar producto por ID
-router.put('/:id', async (req, res) => {
+router.put('/:id', protect, isAdmin, async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
@@ -47,7 +48,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE eliminar producto por ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', protect, isAdmin, async (req, res) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
     if (!deletedProduct) return res.status(404).json({ message: 'Producto no encontrado' });

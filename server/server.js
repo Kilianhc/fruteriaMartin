@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import productRoutes from './routes/products.js';
 import orderRoutes from './routes/orders.js';
+import userRoutes from './routes/user.js';
+import checkoutRoutes from './routes/checkout.js';
 
 dotenv.config();
 
@@ -14,6 +16,8 @@ app.use(express.json());
 // Rutas
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/checkout', checkoutRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
