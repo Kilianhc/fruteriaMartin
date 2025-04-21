@@ -1,27 +1,38 @@
 import express from 'express';
 import Order from '../models/Order.js';
+import { sendConfirmationEmail } from '../utils/email.js';
 
 const router = express.Router();
 
 // Crear una orden (sin login)
 router.post('/', async (req, res) => {
-  const { customer, items, total, paymentId } = req.body;
-
-  if (!customer || !items || !total) {
-    return res.status(400).json({ message: 'Faltan datos' });
-  }
-
-  const newOrder = new Order({
-    customer,
-    items,
-    total,
-    paymentId,
-    paid: true, // ya pagado si viene desde Stripe
+    const { customer, items, total, paymentId } = req.body;
+  
+    if (!customer || !items || !total) {
+      return res.status(400).json({ message: 'Faltan datos' });
+    }
+  
+    const newOrder = new Order({
+      customer,
+      items,
+      total,
+      paymentId,
+      paid: true, // ya pagado si viene desde Stripe
+    });
+  
+    try {
+      // Guardar la orden
+      await newOrder.save();
+      
+      // Enviar correo de confirmación
+      sendConfirmationEmail(customer.email, newOrder);
+  
+      res.status(201).json({ message: 'Orden creada', orderId: newOrder._id });
+    } catch (error) {
+      console.error('Error al crear la orden:', error);
+      res.status(500).json({ message: 'Error al crear la orden' });
+    }
   });
-
-  await newOrder.save();
-  res.status(201).json({ message: 'Orden creada', orderId: newOrder._id });
-});
 
 // Obtener todas las órdenes (solo para el admin, en el futuro se puede proteger)
 router.get('/', async (req, res) => {
