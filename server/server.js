@@ -3,8 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import productRoutes from './routes/products.js';
-/* import userRoutes from './routes/users.js';
-import orderRoutes from './routes/orders.js'; */
+import orderRoutes from './routes/orders.js';
 
 dotenv.config();
 
@@ -14,8 +13,7 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/products', productRoutes);
-/* app.use('/api/users', userRoutes);
-app.use('/api/orders', orderRoutes); */
+app.use('/api/orders', orderRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
