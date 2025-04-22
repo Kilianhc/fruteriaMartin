@@ -14,7 +14,7 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendConfirmationEmail = (to, order) => {
+export const sendConfirmationEmail = async (to, order) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to,
@@ -35,11 +35,11 @@ Dirección de entrega: ${order.customer.address}
 `,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('❌ Error al enviar correo:', error);
-    } else {
-      console.log('📧 Correo enviado:', info.response);
-    }
-  });
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('📧 Correo enviado:', info.response);
+  } catch (error) {
+    console.error('❌ Error al enviar correo:', error);
+  }
 };
+
