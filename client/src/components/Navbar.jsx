@@ -1,64 +1,56 @@
-import React from "react";
+// src/components/NavBar.jsx
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { ShoppingCart, Menu } from 'lucide-react';
+import bananaIcon from '../assets/banana.png';
 
-function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+function NavBar({ cartCount = 0 }) {
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Logo y Nombre */}
-        <div className="flex items-center">
-          <img
-            src="https://img.icons8.com/ios/452/banana.png" // Icono de plátano
-            alt="Plátano"
-            className="w-8 h-8 mr-2"
-          />
-          <Link to="/" className="text-xl font-semibold text-gray-800">
-            Frutería Martín
-          </Link>
+    <nav className="bg-green-600 text-white shadow-md px-8 py-3">
+      <div className="flex justify-between items-center">
+        {/* Logo */}
+        <div className="flex items-center gap-2">
+          <img src={bananaIcon} alt="Banana" className="w-15 h-10 mr-5" />
+          <span className="text-xl font-bold"> <a href="/" className="hover:underline">Frutería Martín</a></span>
         </div>
 
-        {/* Menú */}
-        <div className="hidden md:flex space-x-4">
-          <Link to="/" className="text-gray-700 hover:text-yellow-500">Inicio</Link>
-          <Link to="/productos" className="text-gray-700 hover:text-yellow-500">Productos</Link>
-          <Link to="/login" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-            Login
-          </Link>
+        {/* Desktop menu */}
+        <div className="hidden md:flex gap-8 items-center text-lg">
+          <a href="/" className="hover:underline">Inicio</a>
+          <a href="/productos" className="hover:underline">Productos</a>
+          <div className="relative cursor-pointer">
+            <ShoppingCart size={24} />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5">
+                {cartCount}
+              </span>
+            )}
+          </div>
         </div>
 
-        {/* Menú en móviles */}
+        {/* Móvil: Botón menú */}
         <button
-          className="md:hidden text-gray-700"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden focus:outline-none"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          <Menu size={28} />
         </button>
       </div>
 
-      {/* Menú desplegable en móviles */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white shadow-md mt-2 space-y-2">
-          <Link to="/" className="block text-gray-700 py-2 px-4 hover:bg-yellow-100">Inicio</Link>
-          <Link to="/productos" className="block text-gray-700 py-2 px-4 hover:bg-yellow-100">Productos</Link>
-          <Link to="/login" className="block text-white bg-blue-500 py-2 px-4 rounded hover:bg-blue-600">
-            Login
-          </Link>
+      {/* Menú desplegable en móvil */}
+      {menuOpen && (
+        <div className="md:hidden mt-4 flex flex-col gap-4 text-lg">
+          <a href="/" className="hover:underline">Inicio</a>
+          <a href="/productos" className="hover:underline">Productos</a>
+          <div className="relative w-fit cursor-pointer">
+            <ShoppingCart size={24} />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5">
+                {cartCount}
+              </span>
+            )}
+          </div>
         </div>
       )}
     </nav>

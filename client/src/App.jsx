@@ -1,11 +1,19 @@
-import NavBar from "./components/Navbar"
-import React, { useState } from "react";
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
+// importa también tus páginas y rutas si las estás usando
 
-export default function App() {
-    return (
-      <>
+function App() {
+  return (
+    <div className="flex flex-col min-h-screen">
       <NavBar />
-      </>
-    );
-  }
-  
+
+      <main className="flex-grow">
+        {/* Aquí irá tu router o páginas */}
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
