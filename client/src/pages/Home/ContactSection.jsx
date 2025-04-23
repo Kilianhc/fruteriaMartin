@@ -7,7 +7,7 @@ export default function ContactSection() {
 
       <div className="space-y-6 max-w-xl mx-auto text-center">
         <p className="flex justify-center items-start gap-3">
-          <FaMapMarkerAlt className="text-xl" />
+          <FaMapMarkerAlt className="text-xl mt-1" />
           C/ Galicia, 24, 35006, Mercado Central de Las Palmas de Gran Canaria
         </p>
         <p className="flex justify-center items-center gap-3">
