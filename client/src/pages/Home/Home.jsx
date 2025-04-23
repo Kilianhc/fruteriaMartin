@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import bgImage from '../assets/bg.jpeg';
+import bgImage from '../../assets/bg.jpeg';
+import ContactSection from "./ContactSection";
 
 function Home() {
     return (
@@ -51,6 +52,7 @@ function Home() {
                     ))}
                 </div>
             </section>
+            <ContactSection />
         </div>
     );
 }

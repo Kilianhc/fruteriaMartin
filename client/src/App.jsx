@@ -1,6 +1,6 @@
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import Home from "./pages/Home"
+import Home from "./pages/Home/Home"
 // importa también tus páginas y rutas si las estás usando
 
 function App() {
