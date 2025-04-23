@@ -7,11 +7,11 @@ function NavBar({ cartCount = 0 }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-green-600 text-white shadow-md px-8 py-3">
+    <nav className="bg-[#bd0003] text-white shadow-md px-8 py-3">
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <img src={bananaIcon} alt="Banana" className="w-15 h-10 mr-5" />
+          <img src={bananaIcon} alt="Banana" className="w-10 h-10" />
           <span className="text-xl font-bold"> <a href="/" className="hover:underline">Frutería Martín</a></span>
         </div>
 
