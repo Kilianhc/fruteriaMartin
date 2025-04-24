@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products";
+import CartPage from "./pages/Cart/CartPage";
 // import CartPage from "./pages/Cart/CartPage"; // <-- cuando lo tengas
 // import ProductDetail from "./pages/Products/ProductDetail"; // <-- si luego haces esto
 
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/productos" element={<Products />} />
+            <Route path="/carrito" element={<CartPage />} />
             {/* <Route path="/producto/:id" element={<ProductDetail />} /> */}
             {/* <Route path="/carrito" element={<CartPage />} /> */}
           </Routes>

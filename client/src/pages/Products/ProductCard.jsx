@@ -35,7 +35,7 @@ export default function ProductCard({ product }) {
             </div>
 
             <button
-                onClick={handleAdd}
+                onClick={() => handleAdd()}
                 disabled={quantity < 0.1 || quantity > product.stock}
                 className={`px-4 py-2 rounded text-white transition ${quantity < 0.1 || quantity > product.stock
                         ? 'bg-gray-400 cursor-not-allowed'
