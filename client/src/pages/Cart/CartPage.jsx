@@ -64,11 +64,11 @@ export default function CartPage() {
                         >
                             Vaciar carrito
                         </button>
-                        <a href="/comprar">
+                        <Link to="/comprar">
                             <button className="bg-[#009929] text-white px-6 py-2 rounded hover:bg-green-700 transition ml-4">
                                 Realizar compra
                             </button>
-                        </a>
+                        </Link>
                     </div>
                 </>
             )}

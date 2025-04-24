@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ShoppingCart, Menu } from 'lucide-react';
 import bananaIcon from '../assets/banana.png';
 import { useCart } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,17 +20,17 @@ function NavBar() {
 
         {/* Desktop menu */}
         <div className="hidden md:flex gap-8 items-center text-lg">
-          <a href="/" className="cursor:pointer">Inicio</a>
-          <a href="/productos" className="cursor:pointer">Productos</a>
+          <Link to="/" className="cursor-pointer">Inicio</Link>
+          <Link to="/productos" className="cursor-pointer">Productos</Link>
           <div className="relative cursor-pointer">
-            <a href="/carrito" >
+            <Link to="/carrito" className="relative cursor-pointer">
               <ShoppingCart size={24} />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5">
                   {cartCount}
                 </span>
               )}
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -45,17 +46,17 @@ function NavBar() {
       {/* Menú desplegable en móvil */}
       {menuOpen && (
         <div className="md:hidden mt-4 flex flex-col gap-4 text-lg">
-          <a href="/" className="cursor:pointer">Inicio</a>
-          <a href="/productos" className="cursor:pointer">Productos</a>
+          <Link to="/" className="cursor-pointer">Inicio</Link>
+          <Link to="/productos" className="cursor-pointer">Productos</Link>
           <div className="relative w-fit cursor-pointer">
-            <a href="/carrito" >
+            <Link to="/carrito" className="relative w-fit cursor-pointer">
               <ShoppingCart size={24} />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5">
                   {cartCount}
                 </span>
               )}
-            </a>
+            </Link>
           </div>
         </div>
       )}
