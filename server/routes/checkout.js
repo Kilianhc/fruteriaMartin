@@ -18,8 +18,9 @@ router.post('/create-session', async (req, res) => {
       mode: 'payment',
       line_items: cartItems.map(item => {
         const productData = {
-          name: item.name,
+          name: item.name
         };
+
 
         if (item.description && item.description.trim() !== '') {
           productData.description = item.description;
@@ -34,6 +35,12 @@ router.post('/create-session', async (req, res) => {
           quantity: item.quantity,
         };
       }),
+      metadata: {
+        items: JSON.stringify(cartItems.map(item => ({
+          productId: item._id,
+          quantity: item.quantity,
+        })))
+      },
       success_url: `${FRONTEND_URL}/success`,
       cancel_url: `${FRONTEND_URL}/cancel`,
     });

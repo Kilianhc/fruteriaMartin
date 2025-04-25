@@ -7,11 +7,14 @@ import orderRoutes from './routes/orders.js';
 import userRoutes from './routes/user.js';
 import checkoutRoutes from './routes/checkout.js';
 import nodemailer from 'nodemailer';
+import webhookRoute from './routes/webhook.js';
+
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
+app.use('/webhook', webhookRoute);
 app.use(express.json());
 
 // Rutas
