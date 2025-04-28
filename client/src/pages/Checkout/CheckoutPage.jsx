@@ -50,7 +50,7 @@ export default function CheckoutPage() {
       localStorage.setItem('pendingOrder', JSON.stringify(orderData));
   
       // 3. Llamar a Stripe session
-      const res = await fetch('http://localhost:5000/api/checkout/create-session', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/checkout/create-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
