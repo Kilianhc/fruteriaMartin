@@ -28,6 +28,7 @@ router.post(
 
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
+      console.log('📦 Metadata recibida en webhook:', session.metadata);
 
       try {
         const customer = {
@@ -37,6 +38,7 @@ router.post(
         };
 
         const items = JSON.parse(session.metadata.items);
+        console.log('🛒 Items parsed:', items);
         const total = session.amount_total / 100;
 
         // Verificar stock antes de guardar
