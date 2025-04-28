@@ -29,6 +29,7 @@ app.use('/api/checkout', checkoutRoutes);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB conectado');
-    app.listen(5000, () => console.log('Servidor en puerto 5000'));
+    const port = process.env.PORT || 5000;
+    app.listen(port, () => console.log(`Servidor corriendo en puerto ${port}`));
   })
   .catch(err => console.error(err));
