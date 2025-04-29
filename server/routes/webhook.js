@@ -31,6 +31,12 @@ router.post(
       console.log('📦 Metadata recibida en webhook:', session.metadata);
 
       try {
+        // VERIFICAR DUPLICADOS POR paymentId (Stripe session.id)
+        const existingOrder = await Order.findOne({ paymentId: session.id });
+        if (existingOrder) {
+          console.log('⚠️ Orden ya existe para este pago. Evitando duplicado.');
+          return res.status(200).json({ received: true });
+        }
         const customer = {
           name: session.customer_details.name,
           email: session.customer_details.email,
@@ -46,7 +52,7 @@ router.post(
           const product = await Product.findById(item.productId);
           if (!product || product.stock < item.quantity) {
             console.warn(`Producto no válido o stock insuficiente: ${item.productId}`);
-            return;
+            return res.status(400).json({ error: 'Stock insuficiente o producto no válido' });
           }
         }
 
