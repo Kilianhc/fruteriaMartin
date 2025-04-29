@@ -3,11 +3,13 @@ import { ShoppingCart, Menu } from 'lucide-react';
 import bananaIcon from '../assets/banana.png';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cart } = useCart(); // <- Esto es lo importante
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const { user } = useAuth();
 
   return (
     <nav className="bg-[#bd0003] text-white shadow-md px-8 py-3">
@@ -22,6 +24,9 @@ function NavBar() {
         <div className="hidden md:flex gap-8 items-center text-lg">
           <Link to="/" className="cursor-pointer">Inicio</Link>
           <Link to="/productos" className="cursor-pointer">Productos</Link>
+          {!user && (
+              <Link to="/login">Admin</Link>
+          )}
           <div className="relative cursor-pointer">
             <Link to="/carrito" className="relative cursor-pointer">
               <ShoppingCart size={24} />
@@ -48,6 +53,9 @@ function NavBar() {
         <div className="md:hidden mt-4 flex flex-col gap-4 text-lg">
           <Link to="/" className="cursor-pointer">Inicio</Link>
           <Link to="/productos" className="cursor-pointer">Productos</Link>
+          {!user && (
+              <Link to="/login">Admin</Link>
+          )}
           <div className="relative w-fit cursor-pointer">
             <Link to="/carrito" className="relative w-fit cursor-pointer">
               <ShoppingCart size={24} />

@@ -22,7 +22,7 @@ app.use(express.json());
 // Rutas normales
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/checkout', checkoutRoutes);
 
 // Conexión Mongo

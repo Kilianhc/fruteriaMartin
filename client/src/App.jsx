@@ -1,4 +1,3 @@
-// src/App.jsx
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/Navbar"
 import Footer from "./components/Footer";
@@ -11,6 +10,9 @@ import AdminProducts from "./pages/Admin/AdminProducts";
 import AdminOrders from "./pages/Admin/AdminOrders";
 import EditProduct from "./pages/Admin/EditProducts";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminLayout from "./pages/Admin/AdminLayout";
+import Login from "./pages/Admin/Login";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -24,10 +26,16 @@ function App() {
           <Route path="/carrito" element={<CartPage />} />
           <Route path="/comprar" element={<CheckoutPage />} />
           <Route path="/success" element={<SuccessPage />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/products" element={<AdminProducts />} />
-          <Route path="/admin/products/:id" element={<EditProduct />} />
-          <Route path="/admin/orders" element={<AdminOrders />} />
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/admin" element={<PrivateRoute />}>
+            <Route element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="products" element={<AdminProducts />} />
+              <Route path="products/:id" element={<EditProduct />} />
+              <Route path="orders" element={<AdminOrders />} />
+            </Route>
+          </Route>
         </Routes>
       </main>
 
