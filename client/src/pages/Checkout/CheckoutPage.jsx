@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useCart } from '../../context/CartContext';
-import { createOrder } from '../../services/orderService';
+import { createOrder } from '../../utils/orderService';
 import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutPage() {

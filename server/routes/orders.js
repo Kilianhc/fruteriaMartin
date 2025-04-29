@@ -2,6 +2,7 @@ import express from 'express';
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
 import { sendConfirmationEmail } from '../utils/email.js';
+import { protect, isAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -55,7 +56,7 @@ router.post('/', async (req, res) => {
 });
 
 // Obtener todas las órdenes (solo para el admin, en el futuro se puede proteger)
-router.get('/', async (req, res) => {
+router.get('/', protect, isAdmin, async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
     res.json(orders);
@@ -66,7 +67,7 @@ router.get('/', async (req, res) => {
 });
 
 // Obtener estadísticas generales de órdenes
-router.get('/stats/general', async (req, res) => {
+router.get('/stats/general',protect, isAdmin, async (req, res) => {
   try {
     const totalOrders = await Order.countDocuments();
     const totalRevenueResult = await Order.aggregate([
@@ -92,18 +93,19 @@ router.get('/stats/general', async (req, res) => {
 });
 
 
-// Obtener una orden por ID (sin auth)
-router.get('/:id', async (req, res) => {
+// Marcar orden como completada
+router.put('/:id/complete', protect, isAdmin, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
     if (!order) return res.status(404).json({ message: 'Orden no encontrada' });
 
-    res.json(order);
+    order.paid = true;
+    await order.save();
+
+    res.json({ message: 'Orden marcada como completada' });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: 'Error del servidor' });
   }
 });
-
 
 export default router;

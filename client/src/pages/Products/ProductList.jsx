@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API } from "../../services/api";
+import { API } from "../../utils/api";
 import ProductCard from "./ProductCard";
 
 function ProductList() {
