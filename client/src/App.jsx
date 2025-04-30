@@ -9,7 +9,6 @@ import SuccessPage from "./pages/Checkout/SuccessPage";
 import AdminProducts from "./pages/Admin/AdminProducts";
 import AdminOrders from "./pages/Admin/AdminOrders";
 import EditProduct from "./pages/Admin/EditProducts";
-import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminLayout from "./pages/Admin/AdminLayout";
 import Login from "./pages/Admin/Login";
 import PrivateRoute from "./components/PrivateRoute";
@@ -30,7 +29,7 @@ function App() {
 
           <Route path="/admin" element={<PrivateRoute />}>
             <Route element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
+              <Route index element={<AdminProducts />} />
               <Route path="products" element={<AdminProducts />} />
               <Route path="products/:id" element={<EditProduct />} />
               <Route path="orders" element={<AdminOrders />} />

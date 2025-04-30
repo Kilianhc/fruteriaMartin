@@ -11,15 +11,25 @@ export default function AdminLayout() {
   };
 
   return (
-    <div className="p-4">
-      <h2>Panel de administración</h2>
-      <nav className="my-4">
-        <Link to="/admin">Dashboard</Link> |{" "}
-        <Link to="/admin/products">Productos</Link> |{" "}
-        <Link to="/admin/orders">Pedidos</Link> |{" "}
-        <button onClick={handleLogout} style={{ marginLeft: '1rem' }}>Cerrar sesión</button>
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <header className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">Panel de administración</h2>
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+        >
+          Cerrar sesión
+        </button>
+      </header>
+
+      <nav className="mb-6 space-x-4">
+        <Link to="/admin/products" className="text-[#009929] font-semibold hover:underline">Productos</Link>
+        <Link to="/admin/orders" className="text-[#009929] font-semibold hover:underline">Pedidos</Link>
       </nav>
-      <Outlet />
+
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 }

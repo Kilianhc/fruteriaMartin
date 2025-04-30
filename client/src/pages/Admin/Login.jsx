@@ -31,25 +31,32 @@ export default function Login() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '2rem auto' }}>
-      <h2>Iniciar sesión como administrador</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-md mx-auto mt-20 bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4 text-center">Iniciar sesión como administrador</h2>
+      {error && <p className="text-red-600 mb-4">{error}</p>}
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="email"
           placeholder="Correo electrónico"
+          className="w-full border px-4 py-2 rounded"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-        /><br />
+        />
         <input
           type="password"
           placeholder="Contraseña"
+          className="w-full border px-4 py-2 rounded"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-        /><br />
-        <button type="submit">Ingresar</button>
+        />
+        <button
+          type="submit"
+          className="w-full bg-[#009929] hover:bg-green-700 text-white py-2 rounded transition"
+        >
+          Ingresar
+        </button>
       </form>
     </div>
   );
