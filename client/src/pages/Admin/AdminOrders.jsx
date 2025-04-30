@@ -4,10 +4,10 @@ export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const token = JSON.parse(localStorage.getItem('user'))?.token;
+  const token = JSON.parse(localStorage.getItem('adminUser'))?.token;
 
   const fetchOrders = async () => {
-    const res = await fetch('/api/orders', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/orders`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -16,7 +16,7 @@ export default function AdminOrders() {
   };
 
   const markAsCompleted = async (id) => {
-    const res = await fetch(`/api/orders/${id}/complete`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/orders/${id}/complete`, {
       method: 'PUT',
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -32,16 +32,16 @@ export default function AdminOrders() {
     fetchOrders();
   }, []);
 
-  if (loading) return <p>Cargando órdenes...</p>;
+  if (loading) return <p>Cargando pedidos...</p>;
 
   return (
     <div>
-      <h2>Órdenes</h2>
+      <h2>Pedidos</h2>
       {orders.length === 0 && <p>No hay órdenes aún.</p>}
       <ul>
         {orders.map((order) => (
           <li key={order._id}>
-            <strong>{order.customer.name}</strong> — Total: ${order.total.toFixed(2)} — 
+            <strong>{order.customer.name}</strong> — Total: {order.total.toFixed(2)} € — 
             {order.paid ? ' ✅ Pagado' : ' ❌ Pendiente'}
             {' '}
             {!order.paid && (

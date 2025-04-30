@@ -16,9 +16,18 @@ export default function EditProduct() {
 
   useEffect(() => {
     if (id !== 'new') {
-      fetch(`/api/products/${id}`)
+      fetch(`${import.meta.env.VITE_API_URL}/products/${id}`)
         .then((res) => res.json())
-        .then((data) => setForm(data));
+        .then((data) =>
+          setForm({
+            title: data.title || '',
+            description: data.description || '',
+            price: data.price || '',
+            image: data.image || '',
+            stock: data.stock || '',
+            category: data.category || '',
+          })
+        );
     }
   }, [id]);
 
@@ -28,10 +37,12 @@ export default function EditProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = JSON.parse(localStorage.getItem('user'))?.token;
+    const token = JSON.parse(localStorage.getItem('adminUser'))?.token;
 
     const method = id === 'new' ? 'POST' : 'PUT';
-    const url = id === 'new' ? '/api/products' : `/api/products/${id}`;
+    const url = id === 'new'
+      ? `${import.meta.env.VITE_API_URL}/products`
+      : `${import.meta.env.VITE_API_URL}/products/${id}`;
 
     const res = await fetch(url, {
       method,
