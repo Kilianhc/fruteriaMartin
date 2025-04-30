@@ -37,7 +37,7 @@ export default function AdminProducts() {
   return (
     <div>
       <h2>Administrar Productos</h2>
-      <Link to="/admin/products/new">➕ Añadir producto</Link>
+      <Link to="/admin/products">➕ Añadir producto</Link>
       <ul>
         {products.map((product) => (
           <li key={product._id}>

@@ -1,8 +1,14 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 export default function AdminLayout() {
   const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <div className="p-4">
@@ -11,7 +17,7 @@ export default function AdminLayout() {
         <Link to="/admin">Dashboard</Link> |{" "}
         <Link to="/admin/products">Productos</Link> |{" "}
         <Link to="/admin/orders">Pedidos</Link> |{" "}
-        <button onClick={logout} style={{ marginLeft: '1rem' }}>Cerrar sesión</button>
+        <button onClick={handleLogout} style={{ marginLeft: '1rem' }}>Cerrar sesión</button>
       </nav>
       <Outlet />
     </div>

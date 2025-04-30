@@ -24,8 +24,10 @@ function NavBar() {
         <div className="hidden md:flex gap-8 items-center text-lg">
           <Link to="/" className="cursor-pointer">Inicio</Link>
           <Link to="/productos" className="cursor-pointer">Productos</Link>
-          {!user && (
-              <Link to="/login">Admin</Link>
+          {user?.isAdmin ? (
+            <Link to="/admin">Admin</Link>
+          ) : (
+            <Link to="/login">Admin</Link>
           )}
           <div className="relative cursor-pointer">
             <Link to="/carrito" className="relative cursor-pointer">
@@ -53,8 +55,10 @@ function NavBar() {
         <div className="md:hidden mt-4 flex flex-col gap-4 text-lg">
           <Link to="/" className="cursor-pointer">Inicio</Link>
           <Link to="/productos" className="cursor-pointer">Productos</Link>
-          {!user && (
-              <Link to="/login">Admin</Link>
+          {user?.isAdmin ? (
+            <Link to="/admin">Admin</Link>
+          ) : (
+            <Link to="/login">Admin</Link>
           )}
           <div className="relative w-fit cursor-pointer">
             <Link to="/carrito" className="relative w-fit cursor-pointer">
