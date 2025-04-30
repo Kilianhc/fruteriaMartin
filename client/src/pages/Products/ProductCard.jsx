@@ -12,11 +12,11 @@ export default function ProductCard({ product }) {
     };
 
     return (
-        <div className="bg-white shadow-md rounded-lg p-4 text-center">
+        <div className="bg-white rounded-lg p-4 text-center max-w-xs mx-auto transition-shadow hover:shadow-[0_4px_14px_rgba(189,0,3,0.4)]">
             <img
                 src={product.image}
                 alt={product.title}
-                className="w-full h-40 object-cover mb-4 rounded"
+                className="w-80 h-60 object-cover mb-4 rounded"
             />
             <h3 className="text-xl font-bold mb-2">{product.title}</h3>
             <p className="text-[#009929] font-semibold mb-1">€ {product.price}/kg</p>

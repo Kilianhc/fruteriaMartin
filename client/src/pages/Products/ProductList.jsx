@@ -12,7 +12,7 @@ function ProductList() {
   }, []);
 
   return (
-    <div className="grid gap-6 px-6 py-12 md:grid-cols-2 lg:grid-cols-3">
+    <div className="bg-gray-100 grid gap-3 px-2 py-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {products.length > 0 ? (
         products.map((product) => (
           <ProductCard key={product._id} product={product} />
